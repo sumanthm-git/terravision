@@ -1,0 +1,108 @@
+# TerraVision Installation Guide (macOS)
+
+## Prerequisites and External Dependencies
+
+Before installing TerraVision, you need to install the following external dependencies on macOS:
+
+### 1. Install Anaconda
+install anaconda
+brew install --cask anaconda
+```
+
+### 2. Install External Dependencies with Brew
+```bash
+# Install all required dependencies
+brew install graphviz git terraform
+```
+
+## Python Environment Setup with Anaconda
+
+### 1. Initialize Conda (if first time installation)
+```bash
+# For zsh users (default on macOS Catalina and later)
+conda init zsh
+
+# For bash users
+conda init bash
+
+# Restart your terminal or reload shell configuration
+source ~/.zshrc  # for zsh users
+source ~/.bashrc # for bash users
+```
+
+### 2. Create Python 3.11 Virtual Environment
+```bash
+# Create a new conda environment with Python 3.11
+conda create -n terravision python=3.11 -y
+
+# Activate the environment
+conda activate terravision
+```
+
+### 3. Verify Python Version
+```bash
+python --version
+# Should output: Python 3.11.x
+```
+
+## TerraVision Installation
+### 2. Navigate to TerraVision Directory
+```bash
+cd terravision  # Navigate to the inner terravision directory
+pwd             # Note this path for later use
+```
+
+### 3. Install Python Dependencies
+With your conda environment activated (terravision):
+```bash
+# Install from requirements.txt
+pip install -r requirements.txt
+
+# OR install using setup.py
+pip install .
+```
+
+### 4. Make TerraVision Executable
+```bash
+chmod +x terravision
+```
+
+### 5. Add TerraVision to System PATH
+
+#### Option A: Temporary (session-only)
+```bash
+export PATH=$PATH:$(pwd)
+```
+
+#### Option B: Permanent - For zsh users (default on macOS Catalina and later)
+```bash
+echo 'export PATH=$PATH:'$(pwd) >> ~/.zshrc
+source ~/.zshrc
+```
+
+#### Option C: Permanent - For bash users
+```bash
+echo 'export PATH=$PATH:'$(pwd) >> ~/.bashrc
+source ~/.bashrc
+```
+
+## Verification
+
+### 1. Test Installation
+```bash
+# Make sure conda environment is activated
+conda activate terravision
+
+# Test TerraVision
+terravision --help
+```
+
+## Usage Examples
+
+### Basic Usage
+```bash
+# Make sure environment is activated
+conda activate terravision
+
+# Generate diagram from local Terraform code
+terravision draw --source ~/terravision/tf_files
